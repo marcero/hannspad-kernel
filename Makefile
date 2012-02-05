@@ -323,14 +323,14 @@ CHECK		= sparse
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
-MODFLAGS	= -DMODULE  -O2 -pipe -floop-interchange -floop-strip-mine -floop-block -march=armv7-a -mtune=cortex-a9 -mfpu=vfpv3-d16 -mfloat-abi=softfp -fomit-frame-pointer -DPERFORMANCE_RUN=1
+MODFLAGS	= -DMODULE -o2 -ftree-vectorize -fbranch-target-load-optimize2 -fipa-pta -pipe -march=armv7-a -mtune=cortex-a9 -mfpu=vfpv3-d16 -mfloat-abi=soft -ffast-math -DPERFORMANCE_RUN=1
 CFLAGS_MODULE   = $(MODFLAGS)
 AFLAGS_MODULE   = $(MODFLAGS)
 LDFLAGS_MODULE  = -T $(srctree)/scripts/module-common.lds
-CFLAGS_KERNEL	= -O2 -pipe -floop-interchange -floop-strip-mine -floop-block -march=armv7-a -mtune=cortex-a9 -mfpu=vfpv3-d16 -mfloat-abi=softfp -fomit-frame-pointer -DPERFORMANCE_RUN=1
-AFLAGS_KERNEL	= -O2 -pipe -floop-interchange -floop-strip-mine -floop-block -march=armv7-a -mtune=cortex-a9 -mfpu=vfpv3-d16 -mfloat-abi=softfp -fomit-frame-pointer -DPERFORMANCE_RUN=1
+CFLAGS_KERNEL	= -O1 -pipe -fbranch-target-load-optimize2 -fipa-pta -ftree-vectorize -march=armv7-a -mtune=cortex-a9 -mfpu=vfpv3-d16 -mfloat-abi=soft -fomit-frame-pointer -ffast-math -DPERFORMANCE_RUN=1
+AFLAGS_KERNEL	= -O1 -pipe -fbranch-target-load-optimize2 -fipa-pta -ftree-vectorize -march=armv7-a -mtune=cortex-a9 -mfpu=vfpv3-d16 -mfloat-abi=soft -fomit-frame-pointer -ffast-math -DPERFORMANCE_RUN=1
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
-# -O2 -pipe -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -fbranch-target-load-optimize2 -ftree-vectorize -march=armv7-a -mtune=cortex-a9 -mfpu=vfpv3-d16 -mfloat-abi=softfp -fomit-frame-pointer -ffast-math -fkeep-inline-functions -fkeep-static-consts -DPERFORMANCE_RUN=1
+
 
 # Use LINUXINCLUDE when you must reference the include/ directory.
 # Needed to be compatible with the O= option
